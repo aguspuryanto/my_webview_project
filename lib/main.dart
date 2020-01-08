@@ -105,15 +105,16 @@ class _WebViewWebPageState extends State<WebViewWebPage> {
   
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
-       appBar: AppBar(
-         title: Text("Webview App"),
-       ),
-       body: Container(
-           child: Column(
-               children: <Widget>[
-         (progress != 1.0)
-             ? LinearProgressIndicator(
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Webview App"),
+        ),
+        body: Container(
+          child: Column(
+            children: <Widget>[
+              (progress != 1.0) ? LinearProgressIndicator(
                  value: progress,
                  backgroundColor: Colors.grey[200],
                  valueColor: AlwaysStoppedAnimation<Color>(Colors.purple))
@@ -137,6 +138,8 @@ class _WebViewWebPageState extends State<WebViewWebPage> {
              ),
            ),
          )
-       ].where((Object o) => o != null).toList())));  //Remove null widgets
+       ].where((Object o) => o != null).toList()))
+      )  //Remove null widgets
+    );
   }
 }
